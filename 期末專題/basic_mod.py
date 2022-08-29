@@ -214,9 +214,9 @@ def write():#寫入
 
 def search():#查詢
     print('='*60)
-    asksearch=input('輸入要查詢的項目(0:行程,1:日期,2:種類)')
-    while asksearch!='0' and asksearch!='1' and asksearch!='2': #檢查機制
-        asksearch=input('輸入錯誤(0:行程,1:日期,2:種類)?')
+    asksearch=input('輸入要查詢的項目(0:行程,1:日期,2:種類,3:關係人)：')
+    while asksearch!='0' and asksearch!='1' and asksearch!='2' and asksearch!='3': #檢查機制
+        asksearch=input('輸入錯誤(0:行程,1:日期,2:種類,3:關係人)：?')
     if asksearch=='0': #查詢該行程在哪一天
         search=str(input('輸入要查詢的行程:'))
         print('='*60)
@@ -246,7 +246,7 @@ def search():#查詢
             else:
                 print(date,':')
                 print_dict2date(date) #將日期帶入函數，印出訊息
-    else:
+    elif asksearch=='2':
         sel=str(input("請輸入您查詢的行程種類，1=工作, 2=學業, 3=娛樂, 4=其他："))
         while True:
             if sel=="1" or sel=="2" or sel=="3" or sel=="4": #檢查機制
@@ -280,6 +280,21 @@ def search():#查詢
                     print(date,'的行程：',', '.join(thing))
         else:
             print('無行程')
+    if asksearch=='3': #查詢相關關係人
+        search=str(input('輸入關係人:'))
+        print('='*60)
+        if list4.count(search)>=1: #檢查串列中是否有該行程
+            people=[i for i,x in enumerate(list4) if x==search]
+            
+            for i in people :
+                print("-"*30)
+                print("行程為：",list1[i])
+                print("日期為：",list2[i])
+                print("種類為：",list3[i])
+                print("跟誰：",list4[i])
+                print("-"*30)    
+        else:
+            print(search,': 查無此人')
 
 def rewrite():#修改
     date=check_date() #判定輸入的日期是否正確
