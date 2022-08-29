@@ -213,16 +213,6 @@ def write():#寫入
         print_dict2date(date)#將日期帶入函數
 
 def search():#查詢
-    print(dict1)
-    print(dict2)
-    print(list1)
-    print(list2)
-    print(list3)
-    print(list4)
-    print(ct1)
-    print(ct2)
-    print(ct3)
-    print(ct4)
     print('='*60)
     asksearch=input('輸入要查詢的項目(0:行程,1:日期,2:種類,3:關係人)：')
     while asksearch!='0' and asksearch!='1' and asksearch!='2' and asksearch!='3': #檢查機制
@@ -323,9 +313,10 @@ def rewrite():#修改
             try:
                 rewrite_change=input('輸入要刪除的行程:')
                 dict2[date].remove(rewrite_change) #測試是否能移除
+                list2.pop(list1.index(rewrite_change))
             except:
                 print('無此行程，請再次輸入:') #不行，代表沒有該行程
-            else: 
+            else:
                 rewrite_thing=input('輸入要新增的行程:')#可以，繼續修改(dict2已移除行程)
                 rewrite_ct=input("請輸入修改後的行程種類，1=工作, 2=學業, 3=娛樂, 4=其他：")
                 while rewrite_ct!="1" and rewrite_ct!="2" and rewrite_ct!="3" and rewrite_ct!="4":
@@ -362,8 +353,7 @@ def rewrite():#修改
                         ct4[date].append(rewrite_thing)
                     except:
                         ct4[date]=[rewrite_thing]
-                        
-                list2.remove(date)                 #把日期移到最後面
+                                      
                 list2.append(date)
                 
                 del list3[list1.index(rewrite_change)] #刪除list3的種類
