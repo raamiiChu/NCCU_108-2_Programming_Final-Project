@@ -2,12 +2,19 @@ import basic_mod  #導入模組
 import tkinter
 from tkinter import messagebox
 def back():
-    win = tkinter.Tk() #產生主視窗
-    win.title('詢問')
-    win.geometry('1x1')
-    global ask
-    ask=messagebox.askquestion('詢問','是否返回主選單？') #跳出詢問訊息框
-    win.destroy()      #點擊完後主視窗自動關閉
+    while True:
+        win = tkinter.Tk() #產生主視窗
+        win.title('詢問')
+        win.geometry('1x1')
+        global ask
+        ask=messagebox.askquestion('詢問','是否返回主選單？') #跳出詢問訊息框
+        try:        
+            win.destroy()        #點擊完後主視窗自動關閉        
+        except:
+            continue             
+        else:
+            break
+    
 
 basic_mod.inport()     #匯入資料(名稱用import會搞混，所以改inport)
 while True: 
