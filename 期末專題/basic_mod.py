@@ -1,7 +1,8 @@
 import datetime
+
 list1=[]#行程
-dict1={}#行程:[日期]
-dict2={}#日期:[行程]
+dict1={'ooo':'123','ggg':'456'}#行程:[日期]
+dict2={'123':'ooo','456':'ggg'}#日期:[行程]
 dict3={'0101':'元旦',\
        '0228':'和平紀念日','0401':'愚人節','0501':'勞動節',\
        '0808':'父親節','0928':'教師節','1010':'國慶日',\
@@ -14,13 +15,12 @@ dict3={'0101':'元旦',\
 '0402':'兒童節補假','0430':'勞動節補假','0822':'中元節','0920':'中秋節補假',
 '1011':'國慶日補假','1014':'重陽節','1221':'冬至','1231':'元旦補假',
 '0621':'夏至',
-'''
-'''
 print(list1) #這三行可用於檢查
 print(dict1)
 print(dict2)
 
 '''
+
 def print_dict2date(x):
     for i in dict2[x]:
         print('\t'*2,i)
@@ -48,6 +48,9 @@ def check_date():
 
 
 def write():
+    print(list1)
+    print(dict1)
+    print(dict2)
     date=check_date()
     if date in dict3:#判斷是否為節日
         n=dict3[date]
@@ -74,10 +77,6 @@ def write():
         print('已將行程排入')
         print(date,':')
         print_dict2date(date)#將日期帶入函數
-        print(list1) #這三行可用於檢查
-        print(dict1)
-        print(dict2)
-    
 
 def search():#查詢
     print('='*60)
@@ -193,3 +192,41 @@ def delete():
         else:
             print('取消刪除')
 
+def inport():
+    file=open('串列一.txt', 'r', encoding='utf-8')
+    global list1
+    list1=file.readlines()
+    file.close()
+    
+    file=open('字典一.txt', 'r', encoding='utf-8')
+    global dict1
+    dict1=file.readlines()
+    file.close()
+    
+    file=open('字典二.txt', 'r', encoding='utf-8')
+    global dict2
+    dict2=file.readlines()
+    file.close()
+
+def export():
+    file=open('串列一.txt','w+', encoding='utf-8')
+    for i in list1:
+        file.write(i)
+        file.write('\n')
+    file.close()
+    
+    file=open('字典一.txt','w+', encoding='utf-8')
+    for i,j in dict1.items():
+        file.write(i)
+        file.write('\n')
+        file.write(j)
+        file.write('\n')
+    file.close()
+    
+    file=open('字典二.txt','w+', encoding='utf-8')
+    for i,j in dict2.items():
+        file.write(i)
+        file.write('\n')
+        file.write(j)
+        file.write('\n')
+    file.close()
