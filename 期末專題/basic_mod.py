@@ -191,7 +191,7 @@ def write():#寫入
         dict2[date]=[thing]
 
     try:
-        dict1[thing].append(thing)
+        dict1[thing].append(date)
     except:
         dict1[thing]=[date]
     finally:
@@ -213,6 +213,16 @@ def write():#寫入
         print_dict2date(date)#將日期帶入函數
 
 def search():#查詢
+    print(dict1)
+    print(dict2)
+    print(list1)
+    print(list2)
+    print(list3)
+    print(list4)
+    print(ct1)
+    print(ct2)
+    print(ct3)
+    print(ct4)
     print('='*60)
     asksearch=input('輸入要查詢的項目(0:行程,1:日期,2:種類,3:關係人)：')
     while asksearch!='0' and asksearch!='1' and asksearch!='2' and asksearch!='3': #檢查機制
@@ -298,6 +308,7 @@ def search():#查詢
 
 def rewrite():#修改
     date=check_date() #判定輸入的日期是否正確
+    print('='*60)
     check_dict3(date) #將日期帶入，判斷是否為節日
     print('當日行程:',dict2.get(date,'查無資料'))
     try:
@@ -310,12 +321,12 @@ def rewrite():#修改
             askchange=input('輸入錯誤(0:是,1:否)?')
         if askchange=='0': 
             try:
-                rewrite_change=input('輸入要刪除的行程')
+                rewrite_change=input('輸入要刪除的行程:')
                 dict2[date].remove(rewrite_change) #測試是否能移除
             except:
-                print('無此行程，請再次輸入') #不行，代表沒有該行程
+                print('無此行程，請再次輸入:') #不行，代表沒有該行程
             else: 
-                rewrite_thing=input('輸入要新增的行程')#可以，繼續修改(dict2已移除行程)
+                rewrite_thing=input('輸入要新增的行程:')#可以，繼續修改(dict2已移除行程)
                 rewrite_ct=input("請輸入修改後的行程種類，1=工作, 2=學業, 3=娛樂, 4=其他：")
                 while rewrite_ct!="1" and rewrite_ct!="2" and rewrite_ct!="3" and rewrite_ct!="4":
                     rewrite_ct=input("請重新輸入您的行程種類，1=工作, 2=學業, 3=娛樂, 4=其他：")
@@ -442,6 +453,7 @@ def delete():#刪除
                         else:
                             break
                 del dict2[date] #刪除當日所有行程
+                print('刪除成功')
                    
             else: #刪除一個
                 while True:
