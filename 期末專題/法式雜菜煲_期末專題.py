@@ -5,7 +5,7 @@ def back():
     while True:
         win = tkinter.Tk() #產生主視窗
         win.title('詢問')
-        win.geometry('1x1')
+        win.geometry('0x0')
         global ask
         ask=messagebox.askquestion('詢問','是否返回主選單？') #跳出詢問訊息框
         try:        
