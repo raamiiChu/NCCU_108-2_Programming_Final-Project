@@ -1,12 +1,17 @@
 import basic_mod  #導入模組
+import tkinter
+from tkinter import messagebox
 def back():
-    print('='*40)
+    win = tkinter.Tk() #產生主視窗
+    win.title('詢問')
+    win.geometry('1x1')
     global ask
-    ask=input('若要返回主選單，輸入「0」\n若要繼續，請輸入任意字串:')
+    ask=messagebox.askquestion('詢問','是否返回主選單？') #跳出詢問訊息框
+    win.destroy()      #點擊完後主視窗自動關閉
 
-basic_mod.inport()
+basic_mod.inport()     #匯入資料(名稱用import會搞混，所以改inport)
 while True: 
-    ask=''  #ask共用一個即可
+    ask=''  
     print('='*70)
     print('1:寫入行程\n2:查詢行程\n3:修改行程\
           \n4:刪除行程\n0:結束')
@@ -17,20 +22,19 @@ while True:
     if question=='0':
         break
     elif question=='1':
-        while ask!='0':
-            basic_mod.write()
+        while ask!='yes':
+            basic_mod.write()   #寫入
             back()
     elif question=='2':
-        while ask!='0':
-            basic_mod.search()
+        while ask!='yes':
+            basic_mod.search()  #查詢
             back()
     elif question=='3':
-        while ask!='0':
-            basic_mod.rewrite()
+        while ask!='yes':
+            basic_mod.rewrite() #修改
             back()
     elif question=='4':
-        while ask!='0':
-            basic_mod.delete()
+        while ask!='yes':
+            basic_mod.delete()  #刪除
             back()
-
-basic_mod.export()
+basic_mod.export() #輸出資料
