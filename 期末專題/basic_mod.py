@@ -1,7 +1,7 @@
 import datetime#導入datetime模組
 import pickle    #導入pickle模組
                  
-#pickle函數參考網址
+#pickle模組參考網址
 #https://clay-atlas.com/blog/2020/03/28/%e4%bd%bf%e7%94%a8-pickle-%e6%a8%a1%e7%b5%84%e4%bf%9d%e5%ad%98-python-%e8%b3%87%e6%96%99/
 #https://morvanzhou.github.io/tutorials/python-basic/basic/13-08-pickle/
 
@@ -45,37 +45,43 @@ dict4={'工作':'ct1', '學業':'ct2', '娛樂':'ct3', '其他':'ct4'}#行程類
 
 '''
 def inport():#讀取檔案
-    with open('dict1.pickle','rb') as file:
-        global dict1
-        dict1=pickle.load(file)
-    with open('dict2.pickle','rb') as file:
-        global dict2
-        dict2=pickle.load(file)
-    with open('list1.pickle','rb') as file:
-        global list1
-        list1=pickle.load(file)
-    with open('list2.pickle','rb') as file:
-        global list2
-        list2=pickle.load(file)
-    with open('list3.pickle','rb') as file:
-        global list3
-        list3=pickle.load(file)
-    with open('list4.pickle','rb') as file:
-        global list4
-        list4=pickle.load(file)
-    with open('ct1.pickle','rb') as file:
-        global ct1
-        ct1=pickle.load(file)
-    with open('ct2.pickle','rb') as file:
-        global ct2
-        ct2=pickle.load(file)
-    with open('ct3.pickle','rb') as file:
-        global ct3
-        ct3=pickle.load(file)
-    with open('ct4.pickle','rb') as file:
-        global ct4
-        ct4=pickle.load(file)
-
+    try:#檢查全部檔案是否存在(可讀取)
+        #建立字典、串列
+        with open('dict1.pickle','rb') as file:
+            global dict1
+            dict1=pickle.load(file)
+        with open('dict2.pickle','rb') as file:
+            global dict2
+            dict2=pickle.load(file)
+        with open('list1.pickle','rb') as file:
+            global list1
+            list1=pickle.load(file)
+        with open('list2.pickle','rb') as file:
+            global list2
+            list2=pickle.load(file)
+        with open('list3.pickle','rb') as file:
+            global list3
+            list3=pickle.load(file)
+        with open('list4.pickle','rb') as file:
+            global list4
+            list4=pickle.load(file)
+        with open('ct1.pickle','rb') as file:
+            global ct1
+            ct1=pickle.load(file)
+        with open('ct2.pickle','rb') as file:
+            global ct2
+            ct2=pickle.load(file)
+        with open('ct3.pickle','rb') as file:
+            global ct3
+            ct3=pickle.load(file)
+        with open('ct4.pickle','rb') as file:
+            global ct4
+            ct4=pickle.load(file)
+    except:#若不行，建立新檔案
+        dict1=dict2=ct1=ct2=ct3=ct4={}
+        list1=list2=list3=list4=[]
+        export()
+    
 def export():#輸出檔案
     with open('dict1.pickle', 'wb') as file:
         pickle.dump(dict1,file)
@@ -97,6 +103,7 @@ def export():#輸出檔案
         pickle.dump(ct3,file)
     with open('ct4.pickle', 'wb') as file:
         pickle.dump(ct4,file)
+    
 
 def print_dict2date(x):#打印訊息用的
     for i in dict2[x]:
@@ -153,49 +160,37 @@ def write():#寫入
     
     if category=="1":
         try:
-            ct1[date]#檢查字典中是否已經有該key值
+            ct1[date].append(thing)#檢查字典中是否已經有該key值
         except:
             ct1[date]=[thing]#沒有則新增
-        else:
-            ct1[date].append(thing)#有則附加上去
            
     if category=="2":
         try:
-            ct2[date]
+            ct2[date].append(thing)
         except:
             ct2[date]=[thing]
-        else:
-            ct2[date].append(thing)
            
     if category=="3":
         try:
-            ct3[date]
+            ct3[date].append(thing)
         except:
             ct3[date]=[thing]
-        else:
-            ct3[date].append(thing)
                 
     if category=="4":
         try:
-            ct4[date]
+            ct4[date].append(thing)
         except:
             ct4[date]=[thing]
-        else:
-            ct4[date].append(thing)
 
     try:
-        dict2[date]#檢查字典中是否已經有該key值
+        dict2[date].append(thing)
     except:
-        dict2[date]=[thing]#沒有則新增
-    else:
-        dict2[date].append(thing)#有則附加上去
+        dict2[date]=[thing]
 
     try:
-        dict1[thing]#與上一個同樣原理
+        dict1[thing].append(thing)
     except:
         dict1[thing]=[date]
-    else:
-        dict1[thing].append(date)
     finally:
         if category == "1" :
             category = "工作"
@@ -415,5 +410,4 @@ def delete():#刪除
                         break
         else:
             print('取消刪除')
-
     
