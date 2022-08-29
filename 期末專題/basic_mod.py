@@ -30,13 +30,13 @@ import pickle    #導入pickle模組
     print(ct3)
     print(ct4)
 '''
-
+#日期:國立節日
 dict3={'0101':'元旦','0228':'和平紀念日','0401':'愚人節','0501':'勞動節',\
        '0808':'父親節','0928':'教師節','1010':'國慶日','1031':'萬聖節',\
        '1225':'行憲紀念日','0308':'婦女節','0329':'青年節',\
-       '1025':'臺灣光復節','1112':'國父誕辰紀念日'}#日期:國立節日
-
-dict4={'工作':'ct1', '學業':'ct2', '娛樂':'ct3', '其他':'ct4'}#行程類別
+       '1025':'臺灣光復節','1112':'國父誕辰紀念日'}
+#行程類別
+dict4={'工作':'ct1', '學業':'ct2', '娛樂':'ct3', '其他':'ct4'}
 
 def inport():#讀取檔案
     try:#檢查全部檔案是否存在(可讀取)
@@ -153,7 +153,7 @@ def write():#寫入
     thing=str(input("請寫入您要記錄的事項:"))
     category=str(input("請輸入您的行程種類，1=工作, 2=學業, 3=娛樂, 4=其他："))
 
-    while True:
+    while True: #檢查機制
         if category=="1" or category=="2" or category=="3" or category=="4":
             break
         else:
@@ -301,9 +301,60 @@ def rewrite():#修改
                 print('無此行程，請再次輸入') #不行，代表沒有該行程
             else: 
                 rewrite_thing=input('輸入要新增的行程')#可以，繼續修改(dict2已移除行程)
+                rewrite_ct=input("請輸入修改後的行程種類，1=工作, 2=學業, 3=娛樂, 4=其他：")
+                while rewrite_ct!="1" and rewrite_ct!="2" and rewrite_ct!="3" and rewrite_ct!="4":
+                    rewrite_ct=input("請重新輸入您的行程種類，1=工作, 2=學業, 3=娛樂, 4=其他：")
+                rewrite_who=input('請寫入此事項的關係人，若沒有請直接輸入Enter:')
+                #刪除字典中的行程串列的對應索引值
+                if dict4.get(list3[list1.index(rewrite_change)])=='ct1':
+                    del ct1[date][ct1[date].index(rewrite_change)]
+                elif dict4.get(list3[list1.index(rewrite_change)])=='ct2':
+                    del ct2[date][ct2[date].index(rewrite_change)]
+                elif dict4.get(list3[list1.index(rewrite_change)])=='ct3':
+                    del ct3[date][ct3[date].index(rewrite_change)]
+                elif dict4.get(list3[list1.index(rewrite_change)])=='ct4':
+                    del ct4[date][ct4[date].index(rewrite_change)]
+
+                #新增新的行程種類
+                if rewrite_ct=='1':
+                    try:
+                        ct1[date].append(rewrite_thing)
+                    except:
+                        ct1[date]=[rewrite_thing]
+                elif rewrite_ct=='2':
+                    try:
+                        ct2[date].append(rewrite_thing)
+                    except:
+                        ct2[date]=[rewrite_thing]
+                elif rewrite_ct=='3':
+                    try:
+                        ct3[date].append(rewrite_thing)
+                    except:
+                        ct3[date]=[rewrite_thing]
+                elif rewrite_ct=='4':
+                    try:
+                        ct4[date].append(rewrite_thing)
+                    except:
+                        ct4[date]=[rewrite_thing]
+                        
+                list2.remove(date)                 #把日期移到最後面
+                list2.append(date)
+                
+                del list3[list1.index(rewrite_change)] #刪除list3的種類
+                if rewrite_ct == "1" :#新增更改後的種類
+                    list3.append('工作')
+                elif rewrite_ct == "2" :
+                    list3.append('學業')
+                elif rewrite_ct == "3" :
+                    list3.append('娛樂')
+                elif rewrite_ct == "4" :
+                    list3.append('其他')
+
+                del list4[list1.index(rewrite_change)] #刪除list4的關係人
+                list4.append(rewrite_who)          #新增更改後的關係人
                 list1.remove(rewrite_change)       #list1移除
                 list1.append(rewrite_thing)        #加在list1串列最後方
-                dict1[rewrite_change].remove(date) #移除dict1
+                dict1[rewrite_change].remove(date) #移除dict1的日期
                 dict2[date].append(rewrite_thing)  #加在dict2串列最後方
                 try: #同樣是寫入行程，故與write函數中的功能相同
                     dict1[rewrite_thing]
