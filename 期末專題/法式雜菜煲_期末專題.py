@@ -5,8 +5,7 @@ def back():
     ask=input('若要返回主選單，輸入「0」\n若要繼續，請輸入任意字串:')
 
 basic_mod.inport()
-while True:
-    
+while True: 
     ask=''  #ask共用一個即可
     print('='*70)
     print('1:寫入行程\n2:查詢行程\n3:修改行程\
@@ -33,4 +32,5 @@ while True:
         while ask!='0':
             basic_mod.delete()
             back()
+
 basic_mod.export()
